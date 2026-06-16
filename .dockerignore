@@ -1,0 +1,17 @@
+**/bin
+**/obj
+**/node_modules
+**/dist
+**/.angular
+**/.vs
+**/.idea
+**/.vscode
+**/.git
+**/.gitignore
+**/Dockerfile
+**/docker-compose.yml
+**/.dockerignore
+**/coverage
+**/*.log
+**/.DS_Store
+**/README.md

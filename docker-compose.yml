@@ -1,0 +1,19 @@
+services:
+  api:
+    build:
+      context: ./TodoApp.Api
+    container_name: todoapp-api
+    ports:
+      - "5050:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+
+  client:
+    build:
+      context: ./TodoApp.Client
+    container_name: todoapp-client
+    ports:
+      - "8090:80"
+    depends_on:
+      - api

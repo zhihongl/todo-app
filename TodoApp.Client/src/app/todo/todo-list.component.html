@@ -1,0 +1,53 @@
+<section class="card">
+  <header class="header">
+    <h1>Todos</h1>
+    <span class="count">{{ todos().length }}</span>
+  </header>
+
+  <form class="add" (ngSubmit)="submit()">
+    <input
+      #newTodoInput
+      name="title"
+      type="text"
+      placeholder="What needs doing?"
+      [(ngModel)]="draft"
+      autocomplete="off"
+      aria-label="New todo"
+    />
+    <button type="submit" [disabled]="!draft.trim()">Add</button>
+  </form>
+
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="muted">Loading...</p>
+  } @else if (todos().length === 0) {
+    <p class="muted">No todos yet. Add one above.</p>
+  } @else {
+    <ul class="list">
+      @for (item of todos(); track item.id) {
+        <li class="item" [class.done]="item.isDone">
+          <label class="check">
+            <input
+              type="checkbox"
+              [checked]="item.isDone"
+              (change)="toggle(item.id, $any($event.target).checked)"
+              [attr.aria-label]="'Mark ' + item.title + ' as ' + (item.isDone ? 'not done' : 'done')"
+            />
+            <span class="title">{{ item.title }}</span>
+          </label>
+          <button
+            type="button"
+            class="delete"
+            (click)="remove(item.id)"
+            [attr.aria-label]="'Delete ' + item.title"
+          >
+            Delete
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</section>
